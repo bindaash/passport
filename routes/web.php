@@ -21,3 +21,10 @@ Route::get('/', 'UserController@WelcomePage');
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Route::get('/', function () {
+//     return view('facebookLogin');
+// });
+Route::get('auth/facebook', 'Auth\LoginController@redirectToFacebook');
+Route::get('auth/facebook/callback', 'Auth\LoginController@handleFacebookCallback');
+

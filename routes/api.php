@@ -18,4 +18,8 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::middleware('auth:api')->get('/user', 'UserController@AuthRouteAPI');
+//Route::middleware('auth:api')->get('/user', 'UserController@AuthRouteAPI');
+
+Route::prefix('/user')->group( function() {
+    Route::post('/login', 'api\LoginController@login');
+});
