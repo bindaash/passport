@@ -20,6 +20,31 @@ use Illuminate\Support\Facades\Route;
 
 //Route::middleware('auth:api')->get('/user', 'UserController@AuthRouteAPI');
 
-Route::prefix('/user')->group( function() {
-    Route::post('/login', 'api\LoginController@login');
+Route::match(['get','post'], '/', function() {
+    $api_name = request()->header('Api-Name');
+    //$api_auth = request()->header('Authorization');
+    //echo $api_auth; exit;
+    if($api_name=='registration')
+	{
+		//print_r("expressionyruyeruw");exit();
+		return app()->call('App\Http\Controllers\api\UserController@create');
+	}
+	else if($api_name=='login')
+	{
+		return app()->call('App\Http\Controllers\api\LoginController@login');
+	}
+    else
+	{
+		return response()->json(["statusCode"=>417,"status"=>false,"message"=>"Requested Header Mismatch"],417);
+	}
+
 });
+
+Route::middleware('auth:api')->get('/alluser', 'api\UserController@index');
+/* Route::prefix('/user')->group( function() {
+
+    Route::post('/login', 'api\LoginController@login');
+    Route::middleware('auth:api')->get('/alluser', 'api\UserController@index');
+    Route::post('/registration', 'api\UserController@create');
+
+}); */

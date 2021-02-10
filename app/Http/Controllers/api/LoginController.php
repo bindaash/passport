@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class LoginController extends Controller
 {
     public function login (Request $request)
-    {
+    {   //print_r(request()->all()); exit;
         $login = $request->validate([
             'email' => 'required|string',
             'password' => 'required|string'
@@ -25,5 +25,6 @@ class LoginController extends Controller
         //print_r($accessToken); exit;
         return response(['user'=> Auth::user(), 'access_token' => $accessToken]);
 
-    }    
+    }   
+    
 }
